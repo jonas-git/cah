@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('./app');
 const debug = require('debug')('cah:server');
 const http = require('http');
 
@@ -33,7 +33,7 @@ server.on('listening', onListening);
  * 
  */
 
-const socket = require('../socket')(server);
+const socket = require('./socket')(server);
 
 /**
  * Normalize a port into a number, string, or false.
