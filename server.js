@@ -30,7 +30,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * 
+ * Create socket.
  */
 
 const socket = require('./socket')(server);
