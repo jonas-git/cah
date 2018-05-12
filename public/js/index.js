@@ -21,7 +21,7 @@ socket.on('config', function (config) {
   login_submit_button.addEventListener('click', function (e) {
     // Send the login credentials.
     socket.emit('login', {
-      'user-name': login_input_field.value
+      'name': login_input_field.value
     });
   });
 
