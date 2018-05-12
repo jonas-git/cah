@@ -7,8 +7,8 @@ const base62 = require('base-x')(base62alphabet);
 const uuidv4 = require('uuid/v4');
 const uuidBytes = configValue('uuid_bytes');
 
-const state = {
-  users: {},
+const connections = {
+  clients: {},
   games: {}
 };
 
@@ -47,7 +47,7 @@ function createUUID(checkUUID) {
  * @param {object} socket Socket.io connection object.
  */
 function Client(name, socket) {
-  this.uuid = createUUID(x => !(x in state.users));
+  this.uuid = createUUID(x => !(x in connections.clients));
   this.name = name;
   this.socket = socket;
 }
