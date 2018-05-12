@@ -5,7 +5,7 @@ const clientConfig = configValue('Client');
 const base62alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const base62 = require('base-x')(base62alphabet);
 const uuidv4 = require('uuid/v4');
-const uuidBytes = configValue('uuid_bytes');
+const uuidBytes = configValue('Server.uuid_bytes');
 
 const connections = {
   clients: new ClientList(),
