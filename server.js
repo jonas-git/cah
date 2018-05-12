@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const configValue = require('./config');
+const configValue = require('./util/config');
 const app = require('./app');
 const http = require('http');
 

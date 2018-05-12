@@ -1,5 +1,5 @@
 const createSocket = require('socket.io');
-const configValue = require('./config');
+const configValue = require('./util/config');
 const clientConfig = configValue('Client');
 
 const base62alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
