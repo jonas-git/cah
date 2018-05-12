@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+const config = require('config');
 const app = require('./app');
 const debug = require('debug')('cah:server');
 const http = require('http');
@@ -12,7 +13,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT);
+const port = normalizePort(process.env.PORT || config.get('fallbackPort'));
 app.set('port', port);
 
 /**
