@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const config = require('config');
+const configValue = require('./config');
 const app = require('./app');
 const http = require('http');
 
@@ -94,12 +94,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
-}
-
-/**
- * Wrapper function for retrieving a configuration value.
- */
-
-function configValue(name) {
-  return config.has(name) ? config.get(name) : undefined;
 }
