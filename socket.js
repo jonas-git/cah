@@ -27,6 +27,11 @@ module.exports = function (server) {
     socket.on('login', function (credentials) {
       client.name = credentials.name;
     });
+
+    socket.on('disconnect', function () {
+      // Remove the client from the list again.
+      connections.clients.pop(client);
+    });
   });
 };
 
