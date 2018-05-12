@@ -2,9 +2,13 @@ const createSocket = require('socket.io');
 const configValue = require('./config');
 const clientConfig = configValue('Client');
 
+const base62alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const base62 = require('base-x')(base62alphabet);
+const uuidv4 = require('uuid/v4');
+
 const state = {
-  users: [],
-  games: [],
+  users: {},
+  games: {}
 };
 
 module.exports = function (server) {
@@ -20,3 +24,18 @@ module.exports = function (server) {
     });
   });
 };
+
+/**
+ * Create a universally unique identifier.
+ * @param {function} checkUUID Callback function for checking if the UUID is ok.
+ *        
+ */
+function createUUID(checkUUID) {
+  let uuidB62 = null;
+  const buffer = new Buffer(4);
+  do {
+    const uuid = uuidv4(null, buffer);
+    uuidB62 = base62.encode(uuid);
+  } while (typeof checkUUID === 'function' && !checkUUID(uuidB62));
+  return uuidB62;
+}
