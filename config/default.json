@@ -1,3 +1,6 @@
 {
-  "fallbackPort": 3000
+  "Server": {
+    "fallbackPort": 3000
+  },
+  "Game": {}
 }
