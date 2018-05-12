@@ -1,6 +1,7 @@
 {
   "Server": {
-    "fallback_port": 3000
+    "fallback_port": 3000,
+    "uuid_bytes": 4
   },
   "Client": {
     "min_name_length": 3

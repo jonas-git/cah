@@ -5,6 +5,7 @@ const clientConfig = configValue('Client');
 const base62alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const base62 = require('base-x')(base62alphabet);
 const uuidv4 = require('uuid/v4');
+const uuidBytes = configValue('uuid_bytes');
 
 const state = {
   users: {},
@@ -32,7 +33,7 @@ module.exports = function (server) {
  */
 function createUUID(checkUUID) {
   let uuidB62 = null;
-  const buffer = new Buffer(4);
+  const buffer = new Buffer(uuidBytes);
   do {
     const uuid = uuidv4(null, buffer);
     uuidB62 = base62.encode(uuid);
