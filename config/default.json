@@ -2,7 +2,7 @@
   "Server": {
     "fallback_port": 3000
   },
-  "Game": {
+  "Client": {
     "min_name_length": 3
   }
 }
