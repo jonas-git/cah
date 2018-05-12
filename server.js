@@ -12,7 +12,8 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || config.get('Server.fallbackPort'));
+const fallbackPort = configValue('Server.fallbackPort');
+const port = normalizePort(process.env.PORT || fallbackPort);
 app.set('port', port);
 
 /**
@@ -93,4 +94,12 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
+}
+
+/**
+ * Wrapper function for retrieving a configuration value.
+ */
+
+function configValue(name) {
+  return config.has(name) ? config.get(name) : undefined;
 }
