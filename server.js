@@ -12,7 +12,7 @@ const http = require('http');
  * Get port from environment and store in Express.
  */
 
-const fallbackPort = configValue('Server.fallbackPort');
+const fallbackPort = configValue('Server.fallback_port');
 const port = normalizePort(process.env.PORT || fallbackPort);
 app.set('port', port);
 

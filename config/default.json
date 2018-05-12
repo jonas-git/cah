@@ -1,6 +1,6 @@
 {
   "Server": {
-    "fallbackPort": 3000
+    "fallback_port": 3000
   },
   "Game": {}
 }
