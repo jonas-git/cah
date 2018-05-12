@@ -1,5 +1,4 @@
 const createSocket = require('socket.io');
-const debug = require('debug')('cah:server');
 
 module.exports = function (server) {
   const io = createSocket(server);
