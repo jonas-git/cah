@@ -8,7 +8,7 @@ const uuidv4 = require('uuid/v4');
 const uuidBytes = configValue('uuid_bytes');
 
 const connections = {
-  clients: {},
+  clients: new ClientList(),
   games: {}
 };
 
@@ -16,12 +16,16 @@ module.exports = function (server) {
   const io = createSocket(server);
 
   io.on('connection', function (socket) {
+    // Create a Client instance and keep track of it.
+    const client = new Client(socket);
+    connections.clients.push(client);
+
     // Once a connection is established,
     // immediately send the client configuration.
     socket.emit('config', clientConfig);
 
     socket.on('login', function (credentials) {
-      console.log('The user logged in with the following credentials:', credentials);
+      client.name = credentials.name;
     });
   });
 };
@@ -29,7 +33,6 @@ module.exports = function (server) {
 /**
  * Create a universally unique identifier.
  * @param {function} checkUUID Callback function for checking if the UUID is ok.
- *        
  */
 function createUUID(checkUUID) {
   let uuidB62 = null;
@@ -43,13 +46,12 @@ function createUUID(checkUUID) {
 
 /**
  * A client that connected to the socket.
- * @param {string} name Name of the client.
  * @param {object} socket Socket.io connection object.
  */
-function Client(name, socket) {
+function Client(socket) {
   this.uuid = createUUID(x => !(x in connections.clients));
-  this.name = name;
   this.socket = socket;
+  this.name = "";
 }
 
 /**
