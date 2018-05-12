@@ -4,14 +4,14 @@ const login_submit_button = login_form.querySelector('button');
 const loading_container = document.querySelector('.loading-container');
 
 const socket = io();
-let config = null;
+let game_config = null;
 
 // The login submit button is disabled by default,
 // since the input field does not contain anything yet.
 login_submit_button.disabled = true;
 
-socket.on('config', function (data) {
-  config = data;
+socket.on('config', function (config) {
+  game_config = config;
 
   // The user name input field has a minimum amount of characters.
   login_input_field.addEventListener('input', function (e) {   
