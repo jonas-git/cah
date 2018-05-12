@@ -3,6 +3,7 @@
     <head>
         <title>Cards Against Humanity</title>
         <link rel="icon" href="/static/img/favicon.ico">
+        <link rel="stylesheet" href="/static/css/style.css">
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
@@ -12,6 +13,9 @@
                 Du hast JavaScript in deinem Browser deaktiviert, welches notwendig ist um diese Website anzuzeigen. Ändere dies in deinen Browsereinstellungen und aktualisiere die Seite um fortzufahren.
             </div>
         </noscript>
+        <div class="loading-container">
+            <img class="loading-image" width="100" src="/static/img/loading.svg" alt="Loading">
+        </div>
         <div class="page-container">
             <div class="login-container">
                 <form action="javascript:void(0);">
