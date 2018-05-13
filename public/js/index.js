@@ -65,8 +65,20 @@ socket.on('config', function (config) {
   document.body.classList.add(_config.themes[theme_index].css_class);
   theme_selector.selectedIndex = theme_index;
 
+  // Event handler for changes in the theme selector.
+  (function () {
+    let old_theme_index = theme_index;
+    theme_selector.addEventListener('change', function (e) {
+      const theme_index = this.selectedIndex;
+      document.body.classList.remove(_config.themes[old_theme_index].css_class);
+      document.body.classList.add(_config.themes[theme_index].css_class);
+      Cookies.set('theme_index', theme_index);
+      old_theme_index = theme_index;
+    });
+  })();
+
   // Everything's done. Hide the loading screen.
-  loading_container.classList.add('disabled');
+    loading_container.classList.add('disabled');
 });
 
 // Login has been acknowledged by the server.
@@ -147,21 +159,5 @@ logout_button.addEventListener('click', function (e) {
       e.preventDefault();
       this.blur();
     }
-  });
-})();
-
-(function () {
-  let old_theme_index = null;
-
-  // Store the old index so that we can remove the theme later.
-  theme_selector.addEventListener('focus', function (e) {
-    old_theme_index = this.selectedIndex;
-  });
-
-  theme_selector.addEventListener('change', function (e) {
-    const theme_index = this.selectedIndex;
-    document.body.classList.remove(_config.themes[old_theme_index].css_class);
-    document.body.classList.add(_config.themes[theme_index].css_class);
-    Cookies.set('theme_index', theme_index);
   });
 })();
