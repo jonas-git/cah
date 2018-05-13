@@ -26,7 +26,7 @@ module.exports = function (server) {
 
     socket.on('login', function (credentials) {
       client.name = credentials.name;
-      socket.emit('login_success', { name: client.name, uuid: client.uuid });
+      socket.emit('login_ack', { name: client.name, uuid: client.uuid });
     });
 
     socket.on('rename', function (name) {

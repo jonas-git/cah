@@ -34,7 +34,7 @@ socket.on('config', function (config) {
   loading_container.classList.add('disabled');
 });
 
-socket.on('login_success', function (client) {
+socket.on('login_ack', function (client) {
   _client = client;
   lobby_name_span.innerText = _client.name;
 
