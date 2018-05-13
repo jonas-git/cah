@@ -3,6 +3,10 @@ body {
   cursor: default;
 }
 
+button:disabled {
+  cursor: no-drop
+}
+
 button:not(:disabled), select, option {
   cursor: pointer;
 }
@@ -18,6 +22,7 @@ button:not(:disabled), select, option {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
 }
 
 .loading-container.disabled {
@@ -45,6 +50,26 @@ button:not(:disabled), select, option {
   outline: none;
   font-weight: bold;
   padding: 2px;
+}
+
+.login-container input#login-name::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-weight: 100;
+  opacity: 0.5;
+}
+
+.login-container input#login-name::-moz-placeholder { /* Firefox 19+ */
+  font-weight: 100;
+  opacity: 0.5;
+}
+
+.login-container input#login-name:-ms-input-placeholder { /* IE 10+ */
+  font-weight: 100;
+  opacity: 0.5;
+}
+
+.login-container input#login-name:-moz-placeholder { /* Firefox 18- */
+  font-weight: 100;
+  opacity: 0.5;
 }
 
 span#intro-name {

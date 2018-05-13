@@ -28,6 +28,9 @@ let _client = null;
 socket.on('config', function (config) {
   _config = config;
 
+  // Complete the character amount hint in the placeholder.
+  login_input_field.placeholder = login_input_field.placeholder.replace(/#/, _config.min_name_length);
+
   // Restrict the number of characters to the config's minimum.
   login_input_field.addEventListener('input', function (e) {   
     login_submit_button.disabled = this.value.length < _config.min_name_length;
@@ -78,7 +81,7 @@ socket.on('config', function (config) {
   })();
 
   // Everything's done. Hide the loading screen.
-    loading_container.classList.add('disabled');
+  loading_container.classList.add('disabled');
 });
 
 // Login has been acknowledged by the server.
