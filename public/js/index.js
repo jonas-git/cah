@@ -40,10 +40,14 @@ socket.on('login_success', function (client) {
 
   (function () {
     let oldName = null;
+
+    // Once the users starts renaming store the old name,
+    // in case the new name would be too short.
     lobby_name_span.addEventListener('focus', function (e) {
       oldName = this.innerText;
     });
-    // When enter is pressed save the new name
+
+    // When enter is pressed save the new name.
     lobby_name_span.addEventListener('keypress', function (e) {
       if (e.which === 13) {
         e.preventDefault();
