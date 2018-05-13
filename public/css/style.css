@@ -43,3 +43,9 @@ span#lobby-intro-name {
   font-weight: bold;
   outline: 0;
 }
+
+.lobby-toolbar {
+  background-color: rgb(233, 233, 233);
+  margin: 10px auto;
+  padding: 6px;
+}
