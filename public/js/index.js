@@ -12,10 +12,6 @@ const socket = io();
 let _config = null;
 let _client = null;
 
-// The login submit button is disabled by default,
-// since the input field does not contain anything yet.
-login_submit_button.disabled = true;
-
 socket.on('config', function (config) {
   _config = config;
 
