@@ -1,13 +1,13 @@
 const loading_container = document.querySelector('.loading-container');
 const login_container = document.querySelector('.login-container');
-const lobby_container = document.querySelector('.lobby-container');
+const main_container = document.querySelector('.main-container');
 
 const socket = io();
 let _config = null;
 let _client = null;
 
 const login_form = login_container.querySelector('form');
-const login_input_field = login_form.querySelector('input#name');
+const login_input_field = login_form.querySelector('input#login-name');
 const login_submit_button = login_form.querySelector('button');
 
 socket.on('config', function (config) {
@@ -32,23 +32,23 @@ socket.on('config', function (config) {
   loading_container.classList.add('disabled');
 });
 
-const lobby_name_span = lobby_container.querySelector('span#lobby-intro-name');
+const intro_name_span = main_container.querySelector('span#intro-name');
 
 socket.on('login_ack', function (client) {
   _client = client;
-  lobby_name_span.innerText = _client.name;
+  intro_name_span.innerText = _client.name;
 
   (function () {
     let oldName = null;
 
     // Once the users starts renaming store the old name,
     // in case the new name would be too short.
-    lobby_name_span.addEventListener('focus', function (e) {
+    intro_name_span.addEventListener('focus', function (e) {
       oldName = this.innerText;
     });
 
     // When enter is pressed save the new name.
-    lobby_name_span.addEventListener('keypress', function (e) {
+    intro_name_span.addEventListener('keypress', function (e) {
       if (e.which === 13) {
         e.preventDefault();
         const name = this.innerText;
@@ -61,7 +61,7 @@ socket.on('login_ack', function (client) {
     });
   })();
 
-  lobby_container.classList.remove('disabled');
+  main_container.classList.remove('disabled');
   login_container.classList.add('disabled');
   loading_container.classList.add('disabled');
 });

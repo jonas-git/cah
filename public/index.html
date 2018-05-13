@@ -20,19 +20,29 @@
       <div class="login-container">
         <form action="javascript:void(0);">
           <label for="name">Name:</span>
-          <input type="text" id="name" autocomplete="off" />
+          <input type="text" id="login-name" autocomplete="off" />
           <button type="submit" disabled>Einloggen</button>
         </form>
       </div>
-      <div class="lobby-container disabled">
-        <div class="lobby-intro">
+      <div class="main-container disabled">
+        <div class="main-intro">
           <span>Eingeloggt als </span>
-          <span id="lobby-intro-name" contenteditable spellcheck="false"></span>
+          <span id="intro-name" contenteditable spellcheck="false"></span>
           <img src="/static/img/cah.svg" height="16px" style="float: right; padding: 1px; margin-right: 6px">
         </div>
-        <menu class="lobby-toolbar">
-          <button type="button" class="create-game">Spiel erstellen</button>
+        <menu class="main-toolbar">
+          <div class="lobby-toolset">
+            <button type="button" class="create-game">Spiel erstellen</button>
+          </div>
+          <div class="game-toolset disabled">
+            <button type="button" class="leave-game">Zurück zur Lobby</button>
+          </div>
+          <div class="global-toolset">
+            <button type="button" class="logout">Abmelden</button>
+          </div>
         </menu>
+        <div class="lobby-container"></div>
+        <div class="game-container disabled"></div>
       </div>
     </div>
     <script src="/static/js/index.js"></script>
