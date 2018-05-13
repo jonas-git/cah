@@ -35,6 +35,16 @@ module.exports = function (server) {
       socket.emit('logout_ack');
     });
 
+    socket.on('create_game', function () {
+      // ...
+      socket.emit('game_created');
+    });
+
+    socket.on('leave_game', function () {
+      // ...
+      socket.emit('game_left');
+    });
+
     socket.on('rename', function (name) {
       client.rename(name);
     });
