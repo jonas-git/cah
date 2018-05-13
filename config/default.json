@@ -4,6 +4,11 @@
     "uuid_bytes": 4
   },
   "Client": {
-    "min_name_length": 3
+    "min_name_length": 3,
+    "default_theme_index": 0,
+    "themes": [
+      { "name": "Hell", "css_class": "theme-bright" },
+      { "name": "Dunkel", "css_class": "theme-dark" }
+    ]
   }
 }

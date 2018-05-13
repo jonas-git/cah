@@ -103,7 +103,7 @@ span#intro-name {
   color: rgb(253, 253, 253);
 }
 
-.theme-dark, .theme-dark .loading-container {
+.theme-dark, .theme-dark .loading-container:not(.no-theme) {
   background: #272727;
 }
 
@@ -125,7 +125,8 @@ span#intro-name {
   border-top: 2px solid #a7a59b;
 }
 
-.theme-dark .main-logo, .theme-dark .loading-animation {
+.theme-dark .main-logo,
+.theme-dark .loading-container:not(.no-theme) .loading-animation {
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
