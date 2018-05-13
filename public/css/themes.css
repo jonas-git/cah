@@ -1,0 +1,58 @@
+/* Dark theme. */
+.theme-dark {
+  color: #fdfdfd;
+}
+
+.theme-dark, .theme-dark .loading-container:not(.no-theme) {
+  background: #272727;
+}
+
+.theme-dark .login-container input#login-name {
+  background-color: #f5f5f5;
+  border: 1px solid rgb(94, 94, 94);
+}
+
+.theme-dark .login-container input#login-name:focus {
+  background-color: #fff;
+}
+
+.theme-dark span#intro-name {
+  color: #000;
+}
+
+.theme-dark .main-toolbar {
+  background-color: #726860;
+  border-top: 1px solid #a7a59b;
+}
+
+.theme-dark .main-logo,
+.theme-dark .loading-container:not(.no-theme) .loading-animation {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+/* Bright theme. */
+.theme-bright {
+  color: initial;
+  background: #fff;
+}
+
+.theme-bright .login-container input#login-name {
+  background-color: #fff;
+  border-color: inherit;
+}
+
+.theme-bright .main-toolbar {
+  background-color: #f7eee7;
+  border-top: 2px solid #a7a59b;
+}
+
+/* Mixed theme. */
+.theme-bright span#intro-name, .theme-dark span#intro-name {
+  background-color: rgb(255, 222, 34);
+}
+
+.theme-bright .theme-selector label, .theme-dark .theme-selector label {
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgb(169, 169, 169);
+}
