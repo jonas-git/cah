@@ -38,7 +38,9 @@ const intro_name_span = main_container.querySelector('span#intro-name');
 const main_toolbar = main_container.querySelector('menu.main-toolbar');
 const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
 const game_toolset = main_toolbar.querySelector('.game-toolset');
-const logout_button = main_toolbar.querySelector('.global-toolset button.logout');
+const global_toolset = main_toolbar.querySelector('.global-toolset');
+const create_game_button = lobby_toolset.querySelector('button.create-game');
+const logout_button = global_toolset.querySelector('button.logout');
 
 socket.on('login_ack', function (client) {
   _client = client;
