@@ -1,8 +1,10 @@
 const loading_container = document.querySelector('.loading-container');
 const login_container = document.querySelector('.login-container');
 const main_container = document.querySelector('.main-container');
+const lobby_container = document.querySelector('.lobby-container');
+const game_container = document.querySelector('.game-container');
 
-const socket = io();
+let socket = io();
 let _config = null;
 let _client = null;
 
@@ -33,6 +35,10 @@ socket.on('config', function (config) {
 });
 
 const intro_name_span = main_container.querySelector('span#intro-name');
+const main_toolbar = main_container.querySelector('menu.main-toolbar');
+const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
+const game_toolset = main_toolbar.querySelector('.game-toolset');
+const logout_button = main_toolbar.querySelector('.global-toolset button.logout');
 
 socket.on('login_ack', function (client) {
   _client = client;
@@ -61,6 +67,26 @@ socket.on('login_ack', function (client) {
     });
   })();
 
+  logout_button.addEventListener('click', function (e) {
+    // Reset everything to the initial state.
+    login_submit_button.disabled = true;
+    login_input_field.value = '';
+    loading_container.classList.remove('disabled');
+    login_container.classList.remove('disabled');
+    main_container.classList.add('disabled');
+    lobby_container.classList.remove('disabled');
+    game_container.classList.add('disabled');
+    lobby_toolset.classList.remove('disabled');
+    game_toolset.classList.add('disabled');
+
+    socket.on('logout_ack', function () {
+      _client = null;
+      loading_container.classList.add('disabled');
+    });
+    socket.emit('logout');
+  });
+
+  // The login has been acknowledged, so show the main screen.
   main_container.classList.remove('disabled');
   login_container.classList.add('disabled');
   loading_container.classList.add('disabled');

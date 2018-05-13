@@ -16,9 +16,9 @@ module.exports = function (server) {
   const io = createSocket(server);
 
   io.on('connection', function (socket) {
-    // Create a Client instance and keep track of it.
+    console.log('new connection');
+
     const client = new Client(socket);
-    connections.clients.push(client);
 
     // Once a connection is established,
     // immediately send the client configuration.
@@ -26,7 +26,13 @@ module.exports = function (server) {
 
     socket.on('login', function (credentials) {
       client.name = credentials.name;
+      connections.clients.push(client);
       socket.emit('login_ack', { name: client.name, uuid: client.uuid });
+    });
+
+    socket.on('logout', function () {
+      connections.clients.pop(client);
+      socket.emit('logout_ack');
     });
 
     socket.on('rename', function (name) {
@@ -34,7 +40,6 @@ module.exports = function (server) {
     });
 
     socket.on('disconnect', function () {
-      // Remove the client from the list again.
       connections.clients.pop(client);
     });
   });
