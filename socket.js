@@ -26,6 +26,7 @@ module.exports = function (server) {
 
     socket.on('login', function (credentials) {
       client.name = credentials.name;
+      socket.emit('login_success', { name: client.name, uuid: client.uuid });
     });
 
     socket.on('disconnect', function () {

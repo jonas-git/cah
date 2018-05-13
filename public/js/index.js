@@ -1,17 +1,23 @@
-const login_form = document.querySelector('.login-container form');
-const login_input_field = login_form.querySelector('input#user-name');
-const login_submit_button = login_form.querySelector('button');
 const loading_container = document.querySelector('.loading-container');
+const login_container = document.querySelector('.login-container');
+const lobby_container = document.querySelector('.lobby-container');
+
+const login_form = login_container.querySelector('form');
+const login_input_field = login_form.querySelector('input#name');
+const login_submit_button = login_form.querySelector('button');
+
+const lobby_name_span = lobby_container.querySelector('span.lobby-name');
 
 const socket = io();
-let game_config = null;
+let _config = null;
+let _client = null;
 
 // The login submit button is disabled by default,
 // since the input field does not contain anything yet.
 login_submit_button.disabled = true;
 
 socket.on('config', function (config) {
-  game_config = config;
+  _config = config;
 
   // The user name input field has a minimum amount of characters.
   login_input_field.addEventListener('input', function (e) {   
@@ -23,8 +29,19 @@ socket.on('config', function (config) {
     socket.emit('login', {
       'name': login_input_field.value
     });
+
+    // Reenable the loading screen until the login has succeeded.
+    loading_container.classList.remove('disabled');
   });
 
   // Disable the loading screen.
+  loading_container.classList.add('disabled');
+});
+
+socket.on('login_success', function (client) {
+  _client = client;
+  lobby_name_span.innerText = client.name;
+  lobby_container.classList.remove('disabled');
+  login_container.classList.add('disabled');
   loading_container.classList.add('disabled');
 });

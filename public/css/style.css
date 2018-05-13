@@ -13,13 +13,19 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+.loading-container.disabled {
+  /* Putting the transition code here will cause
+    the loading screen to pop in and fade out. */
   -webkit-transition: opacity .3s ease-out;
   -moz-transition: opacity .3s ease-out;
   -o-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
-}
-
-.loading-container.disabled {
   pointer-events: none;
   opacity: 0;
+}
+
+.login-container.disabled, .lobby-container.disabled {
+  display: none;
 }
