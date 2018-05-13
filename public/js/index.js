@@ -2,15 +2,13 @@ const loading_container = document.querySelector('.loading-container');
 const login_container = document.querySelector('.login-container');
 const lobby_container = document.querySelector('.lobby-container');
 
-const login_form = login_container.querySelector('form');
-const login_input_field = login_form.querySelector('input#name');
-const login_submit_button = login_form.querySelector('button');
-
-const lobby_name_span = lobby_container.querySelector('span#lobby-intro-name');
-
 const socket = io();
 let _config = null;
 let _client = null;
+
+const login_form = login_container.querySelector('form');
+const login_input_field = login_form.querySelector('input#name');
+const login_submit_button = login_form.querySelector('button');
 
 socket.on('config', function (config) {
   _config = config;
@@ -33,6 +31,8 @@ socket.on('config', function (config) {
   // Disable the loading screen.
   loading_container.classList.add('disabled');
 });
+
+const lobby_name_span = lobby_container.querySelector('span#lobby-intro-name');
 
 socket.on('login_ack', function (client) {
   _client = client;
