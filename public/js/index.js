@@ -17,7 +17,7 @@ socket.on('config', function (config) {
 
   // The user name input field has a minimum amount of characters.
   login_input_field.addEventListener('input', function (e) {   
-    login_submit_button.disabled = this.value.length < config.min_name_length;
+    login_submit_button.disabled = this.value.length < _config.min_name_length;
   });
 
   login_submit_button.addEventListener('click', function (e) {
@@ -36,7 +36,7 @@ socket.on('config', function (config) {
 
 socket.on('login_success', function (client) {
   _client = client;
-  lobby_name_span.innerText = client.name;
+  lobby_name_span.innerText = _client.name;
 
   (function () {
     let oldName = null;
