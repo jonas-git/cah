@@ -40,7 +40,7 @@ socket.on('config', function (config) {
   login_submit_button.addEventListener('click', function (e) {
     // Send the login credentials.
     socket.emit('login', {
-      'name': login_input_field.value
+      name: login_input_field.value
     });
 
     // Reenable the loading screen until the login has succeeded.
@@ -85,8 +85,8 @@ socket.on('config', function (config) {
 });
 
 // Login has been acknowledged by the server.
-socket.on('login_ack', function (client) {
-  _client = client;
+socket.on('login_ack', function (response) {
+  _client = response.data.client;
   intro_name_span.innerText = _client.name;
   main_container.classList.remove('disabled');
   login_container.classList.add('disabled');
@@ -102,11 +102,11 @@ create_game_button.addEventListener('click', function (e) {
   lobby_container.classList.add('disabled');
   game_container.classList.remove('disabled');
 
-  socket.on('game_created', function (game) {
+  socket.on('game_create_ack', function (game) {
     // ...
     loading_container.classList.add('disabled');
   });
-  socket.emit('create_game');
+  socket.emit('game_create');
 });
 
 leave_game_button.addEventListener('click', function (e) {
@@ -118,11 +118,11 @@ leave_game_button.addEventListener('click', function (e) {
   lobby_container.classList.remove('disabled');
   game_container.classList.add('disabled');
 
-  socket.on('game_left', function (game) {
+  socket.on('game_leave_ack', function (game) {
     // ...
     loading_container.classList.add('disabled');
   });
-  socket.emit('leave_game');
+  socket.emit('game_leave');
 });
 
 const logout_button = global_toolset.querySelector('button.logout');
