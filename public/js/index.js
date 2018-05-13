@@ -55,15 +55,19 @@ socket.on('login_ack', function (client) {
     oldName = this.innerText;
   });
 
-  // When enter is pressed save the new name.
+  // Once the span is blurred, save the new name.
+  intro_name_span.addEventListener('blur', function (e) {
+    const name = this.innerText;
+    if (name.length >= _config.min_name_length)
+      socket.emit('rename', name);
+    else
+      this.innerText = oldName;
+  });
+
+  // When enter is pressed blur the span.
   intro_name_span.addEventListener('keypress', function (e) {
     if (e.which === 13) {
       e.preventDefault();
-      const name = this.innerText;
-      if (name.length >= _config.min_name_length)
-        socket.emit('rename', name);
-      else
-        this.innerText = oldName;
       this.blur();
     }
   });
