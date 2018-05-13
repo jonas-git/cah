@@ -103,18 +103,26 @@ create_game_button.addEventListener('click', function (e) {
   game_container.classList.remove('disabled');
 
   socket.on('game_created', function (game) {
-
+    // ...
     loading_container.classList.add('disabled');
   });
   socket.emit('create_game');
 });
 
 leave_game_button.addEventListener('click', function (e) {
+  loading_container.classList.remove('disabled');
+
   // Switch the toolset and the shown subcontainer.
   lobby_toolset.classList.remove('disabled');
   game_toolset.classList.add('disabled');
   lobby_container.classList.remove('disabled');
   game_container.classList.add('disabled');
+
+  socket.on('game_left', function (game) {
+    // ...
+    loading_container.classList.add('disabled');
+  });
+  socket.emit('leave_game');
 });
 
 const logout_button = global_toolset.querySelector('button.logout');
