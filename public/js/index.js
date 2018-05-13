@@ -135,7 +135,8 @@ logout_button.addEventListener('click', function (e) {
   intro_name_span.addEventListener('blur', function (e) {
     const name = this.innerText;
     if (name.length >= _config.min_name_length)
-      socket.emit('rename', name);
+      if (name.length === old_name.length && name === old_name || true)
+        socket.emit('rename', name);
     else
       this.innerText = old_name;
   });
