@@ -77,18 +77,26 @@ const main_toolbar = main_container.querySelector('menu.main-toolbar');
 const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
 const game_toolset = main_toolbar.querySelector('.game-toolset');
 const global_toolset = main_toolbar.querySelector('.global-toolset');
-const create_game_button = lobby_toolset.querySelector('button.create-game');
-const leave_game_button = game_toolset.querySelector('button.leave-game');
-const logout_button = global_toolset.querySelector('button.logout');
 
+const create_game_button = lobby_toolset.querySelector('button.create-game');
 create_game_button.addEventListener('click', function (e) {
+  loading_container.classList.remove('disabled');
+
   // Switch the toolset and the shown subcontainer.
   lobby_toolset.classList.add('disabled');
   game_toolset.classList.remove('disabled');
   lobby_container.classList.add('disabled');
   game_container.classList.remove('disabled');
+
+  socket.on('game_created', function (game) {
+
+    loading_container.classList.add('disabled');
+  });
+  socket.emit('create_game');
 });
 
+
+const leave_game_button = game_toolset.querySelector('button.leave-game');
 leave_game_button.addEventListener('click', function (e) {
   // Switch the toolset and the shown subcontainer.
   lobby_toolset.classList.remove('disabled');
@@ -97,6 +105,7 @@ leave_game_button.addEventListener('click', function (e) {
   game_container.classList.add('disabled');
 });
 
+const logout_button = global_toolset.querySelector('button.logout');
 logout_button.addEventListener('click', function (e) {
   // Reset everything to the initial state.
   login_submit_button.disabled = true;
@@ -114,4 +123,16 @@ logout_button.addEventListener('click', function (e) {
     loading_container.classList.add('disabled');
   });
   socket.emit('logout');
+});
+
+const theme_selector = global_toolset.querySelector('select#theme-selector');
+theme_selector.addEventListener('change', function () {
+  switch (this.selectedIndex) {
+  case 0: /* Bright theme. */
+    document.body.classList.remove('theme-dark');
+    break;
+  case 1: /* Dark theme. */
+    document.body.classList.add('theme-dark');
+    break;
+  }
 });

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <script src="/socket.io/socket.io.js"></script>
   </head>
-  <body>
+  <body class="theme-dark">
     <noscript>
       <link rel="stylesheet" href="/static/css/nojs.css">
       <div class="nojs-message">
@@ -38,6 +38,13 @@
             <button type="button" class="leave-game">Zurück zur Lobby</button>
           </div>
           <div class="global-toolset">
+            <div class="theme-selector">
+              <label for="theme-selector">Thema:</label>
+              <select id="theme-selector">
+                <option>Hell</option>
+                <option>Dunkel</option>
+              </select>
+            </div>
             <button type="button" class="logout">Ausloggen</button>
           </div>
         </menu>
