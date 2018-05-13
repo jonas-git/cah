@@ -1,5 +1,6 @@
 - create an admin control panel where you can do following things:
     * change any game settings
     * enable/disabled the game by starting/stopping the socket
-    * Have a sub-loading screen that doesn't cover the main header and toolbar
+    * have a sub-loading screen that doesn't cover the main header and toolbar
+    * store the last used user name as a cookie as well
     * ...
