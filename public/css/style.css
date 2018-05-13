@@ -48,7 +48,6 @@ button:not(:disabled), select, option {
 }
 
 span#intro-name {
-  background-color: rgb(255, 222, 34);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -63,8 +62,6 @@ span#intro-name {
 
 .theme-selector label {
   display: table-cell;
-  background-color: rgb(241, 241, 241);
-  border: 1px solid rgb(169, 169, 169);
   border-right: none;
   color: #000;
   padding: 0px 4px;
@@ -77,8 +74,6 @@ span#intro-name {
 }
 
 .main-toolbar {
-  background-color: #f7eee7;
-  border-top: 2px solid #a7a59b;
   border-radius: 2px;
   margin: 8px auto;
   padding: 6px;
@@ -100,7 +95,7 @@ span#intro-name {
 
 /* Dark theme styling. */
 .theme-dark {
-  color: rgb(253, 253, 253);
+  color: #fdfdfd;
 }
 
 .theme-dark, .theme-dark .loading-container:not(.no-theme) {
@@ -122,11 +117,37 @@ span#intro-name {
 
 .theme-dark .main-toolbar {
   background-color: #726860;
-  border-top: 2px solid #a7a59b;
+  border-top: 1px solid #a7a59b;
 }
 
 .theme-dark .main-logo,
 .theme-dark .loading-container:not(.no-theme) .loading-animation {
   -webkit-filter: invert(100%);
   filter: invert(100%);
+}
+
+/* Bright theme styling. */
+.theme-bright {
+  color: initial;
+  background: #fff;
+}
+
+.theme-bright .login-container input#login-name {
+  background-color: #fff;
+  border-color: inherit;
+}
+
+.theme-bright .main-toolbar {
+  background-color: #f7eee7;
+  border-top: 2px solid #a7a59b;
+}
+
+/* Mixed theme styling. */
+.theme-bright span#intro-name, .theme-dark span#intro-name {
+  background-color: rgb(255, 222, 34);
+}
+
+.theme-bright .theme-selector label, .theme-dark .theme-selector label {
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgb(169, 169, 169);
 }
