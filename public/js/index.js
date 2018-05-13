@@ -6,7 +6,7 @@ const login_form = login_container.querySelector('form');
 const login_input_field = login_form.querySelector('input#name');
 const login_submit_button = login_form.querySelector('button');
 
-const lobby_name_span = lobby_container.querySelector('span.lobby-name');
+const lobby_name_span = lobby_container.querySelector('span#lobby-intro-name');
 
 const socket = io();
 let _config = null;
@@ -37,6 +37,26 @@ socket.on('config', function (config) {
 socket.on('login_success', function (client) {
   _client = client;
   lobby_name_span.innerText = client.name;
+
+  (function () {
+    let oldName = null;
+    lobby_name_span.addEventListener('focus', function (e) {
+      oldName = this.innerText;
+    });
+    // When enter is pressed save the new name
+    lobby_name_span.addEventListener('keypress', function (e) {
+      if (e.which === 13) {
+        e.preventDefault();
+        const name = this.innerText;
+        if (name.length >= _config.min_name_length)
+          socket.emit('rename', name);
+        else
+          this.innerText = oldName;
+        this.blur();
+      }
+    });
+  })();
+
   lobby_container.classList.remove('disabled');
   login_container.classList.add('disabled');
   loading_container.classList.add('disabled');

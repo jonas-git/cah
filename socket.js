@@ -29,6 +29,10 @@ module.exports = function (server) {
       socket.emit('login_success', { name: client.name, uuid: client.uuid });
     });
 
+    socket.on('rename', function (name) {
+      client.rename(name);
+    });
+
     socket.on('disconnect', function () {
       // Remove the client from the list again.
       connections.clients.pop(client);
