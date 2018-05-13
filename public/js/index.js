@@ -65,10 +65,8 @@ socket.on('config', function (config) {
   document.body.classList.add(_config.themes[theme_index].css_class);
   theme_selector.selectedIndex = theme_index;
 
-  setTimeout(function () {
-    // Everything's done. Hide the loading screen.
-    loading_container.classList.add('disabled');
-  }, 1000);
+  // Everything's done. Hide the loading screen.
+  loading_container.classList.add('disabled');
 });
 
 // Login has been acknowledged by the server.
