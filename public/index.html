@@ -12,26 +12,44 @@
     <noscript>
       <link rel="stylesheet" href="/static/css/nojs.css">
       <div class="nojs-message">
-        Du hast JavaScript in deinem Browser deaktiviert, welches notwendig ist um diese Website anzuzeigen. Ändere dies in deinen Browsereinstellungen und aktualisiere die Seite um fortzufahren.
+        Du hast JavaScript in deinem Browser deaktiviert, welches notwendig
+        ist um diese Website anzuzeigen. Ändere dies in deinen Browsereinstellungen
+        und aktualisiere die Seite um fortzufahren.
       </div>
     </noscript>
+
+    <!-- This resembles the main application and
+      contains all its pages and modules. -->
     <div class="page-container">
+
+      <!-- Generic loading overlay. -->
       <div class="loading-container">
-        <img class="loading-animation" width="100" src="/static/img/loading.svg" alt="Loading">
+        <img class="loading-animation" width="100"
+          src="/static/img/loading.svg" alt="Loading">
       </div>
+
+      <!-- Initial view where the user logs in. -->
       <div class="login-container">
         <form action="javascript:void(0);">
           <label for="name">Name:</span>
-          <input type="text" id="login-name" autocomplete="off" spellcheck="false" placeholder="mindestens # Zeichen" />
+          <input type="text" id="login-name" autocomplete="off"
+            spellcheck="false" placeholder="mindestens # Zeichen" />
           <button type="submit" disabled>Einloggen</button>
         </form>
       </div>
+
+      <!-- Contains the part of application with the actual game. -->
       <div class="main-container disabled">
+
+        <!-- Topmost line with meta information. -->
         <div class="main-intro">
           <span>Eingeloggt als </span>
           <span id="intro-name" contenteditable spellcheck="false"></span>
           <img src="/static/img/cah.svg" height="16px" class="main-logo">
         </div>
+
+        <!-- Persistent toolbar that adapts to the current view.
+          E.g. the lobby toolset differs from the game toolset. -->
         <menu class="main-toolbar">
           <div class="lobby-toolset">
             <button type="button" class="create-game">Spiel erstellen</button>
@@ -39,6 +57,7 @@
           <div class="game-toolset disabled">
             <button type="button" class="leave-game">Zurück zur Lobby</button>
           </div>
+          <!-- This toolset stays the same, irrespective of the view. -->
           <div class="global-toolset">
             <div class="theme-selector">
               <label for="theme-selector">Thema:</label>
@@ -48,7 +67,10 @@
             <button type="button" class="logout">Ausloggen</button>
           </div>
         </menu>
+
+        <!-- Lobby view -->
         <div class="lobby-container"></div>
+        <!-- Game view -->
         <div class="game-container disabled"></div>
       </div>
     </div>
