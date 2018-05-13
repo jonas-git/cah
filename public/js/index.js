@@ -74,7 +74,24 @@ const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
 const game_toolset = main_toolbar.querySelector('.game-toolset');
 const global_toolset = main_toolbar.querySelector('.global-toolset');
 const create_game_button = lobby_toolset.querySelector('button.create-game');
+const leave_game_button = game_toolset.querySelector('button.leave-game');
 const logout_button = global_toolset.querySelector('button.logout');
+
+create_game_button.addEventListener('click', function (e) {
+  // Switch the toolset and the shown subcontainer.
+  lobby_toolset.classList.add('disabled');
+  game_toolset.classList.remove('disabled');
+  lobby_container.classList.add('disabled');
+  game_container.classList.remove('disabled');
+});
+
+leave_game_button.addEventListener('click', function (e) {
+  // Switch the toolset and the shown subcontainer.
+  lobby_toolset.classList.remove('disabled');
+  game_toolset.classList.add('disabled');
+  lobby_container.classList.remove('disabled');
+  game_container.classList.add('disabled');
+});
 
 logout_button.addEventListener('click', function (e) {
   // Reset everything to the initial state.
