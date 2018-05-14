@@ -32,6 +32,7 @@ socket.on('connect', function () { state.connected = true; });
 socket.on('reconnect', function (attempt) { state.connected = state.reconnected = true; });
 socket.on('disconnect', function () { state.connected = state.reconnected = false; });
 
+
 // Before anything the application waits for the client config
 // to arrive via the socket connection. 
 socket.on('config', function (config) {
@@ -108,6 +109,7 @@ socket.on('config', function (config) {
   loading_container.classList.add('disabled');
 });
 
+
 const logout_button = global_toolset.querySelector('button.logout');
 logout_button.addEventListener('click', function (e) {
   // Reset everything to the initial state.
@@ -126,6 +128,7 @@ logout_button.addEventListener('click', function (e) {
     _client = null;
   });
 });
+
 
 (function () {
   let old_name = null;
@@ -163,6 +166,7 @@ logout_button.addEventListener('click', function (e) {
   });
 })();
 
+
 create_game_button.addEventListener('click', function (e) {
   loading_container.classList.remove('disabled');
 
@@ -178,6 +182,7 @@ create_game_button.addEventListener('click', function (e) {
   });
 });
 
+
 leave_game_button.addEventListener('click', function (e) {
   loading_container.classList.remove('disabled');
 
@@ -192,3 +197,4 @@ leave_game_button.addEventListener('click', function (e) {
     loading_container.classList.add('disabled');
   });
 });
+
