@@ -44,21 +44,6 @@ module.exports = function (server) {
       }, error);
     });
 
-    socket.on('logout', function (data, callback) {
-      connections.clients.pop(client);
-      callback({}, null);
-    });
-
-    socket.on('game_create', function (data, callback) {
-      // ...
-      callback({}, null);
-    });
-
-    socket.on('game_leave', function (data, callback) {
-      // ...
-      callback({}, null);
-    });
-
     socket.on('rename', function (data, callback) {
       let error = null;
       if (connections.clients.is_name_taken(data.name))
@@ -73,6 +58,21 @@ module.exports = function (server) {
 
     socket.on('disconnect', function () {
       connections.clients.pop(client);
+    });
+
+    socket.on('logout', function (data, callback) {
+      connections.clients.pop(client);
+      callback({}, null);
+    });
+
+    socket.on('game_create', function (data, callback) {
+      // ...
+      callback({}, null);
+    });
+
+    socket.on('game_leave', function (data, callback) {
+      // ...
+      callback({}, null);
     });
   });
 };

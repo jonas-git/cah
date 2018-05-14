@@ -108,36 +108,6 @@ socket.on('config', function (config) {
   loading_container.classList.add('disabled');
 });
 
-create_game_button.addEventListener('click', function (e) {
-  loading_container.classList.remove('disabled');
-
-  // Switch the toolset and the shown subcontainer.
-  lobby_toolset.classList.add('disabled');
-  game_toolset.classList.remove('disabled');
-  lobby_container.classList.add('disabled');
-  game_container.classList.remove('disabled');
-
-  socket.emit('game_create', {}, function (data, error) {
-    // ...
-    loading_container.classList.add('disabled');
-  });
-});
-
-leave_game_button.addEventListener('click', function (e) {
-  loading_container.classList.remove('disabled');
-
-  // Switch the toolset and the shown subcontainer.
-  lobby_toolset.classList.remove('disabled');
-  game_toolset.classList.add('disabled');
-  lobby_container.classList.remove('disabled');
-  game_container.classList.add('disabled');
-
-  socket.emit('game_leave', {}, function (data, error) {
-    // ...
-    loading_container.classList.add('disabled');
-  });
-});
-
 const logout_button = global_toolset.querySelector('button.logout');
 logout_button.addEventListener('click', function (e) {
   // Reset everything to the initial state.
@@ -192,3 +162,33 @@ logout_button.addEventListener('click', function (e) {
     }
   });
 })();
+
+create_game_button.addEventListener('click', function (e) {
+  loading_container.classList.remove('disabled');
+
+  // Switch the toolset and the shown subcontainer.
+  lobby_toolset.classList.add('disabled');
+  game_toolset.classList.remove('disabled');
+  lobby_container.classList.add('disabled');
+  game_container.classList.remove('disabled');
+
+  socket.emit('game_create', {}, function (data, error) {
+    // ...
+    loading_container.classList.add('disabled');
+  });
+});
+
+leave_game_button.addEventListener('click', function (e) {
+  loading_container.classList.remove('disabled');
+
+  // Switch the toolset and the shown subcontainer.
+  lobby_toolset.classList.remove('disabled');
+  game_toolset.classList.add('disabled');
+  lobby_container.classList.remove('disabled');
+  game_container.classList.add('disabled');
+
+  socket.emit('game_leave', {}, function (data, error) {
+    // ...
+    loading_container.classList.add('disabled');
+  });
+});
