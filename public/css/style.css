@@ -42,7 +42,7 @@ button:not(:disabled), select, option {
   display: none;
 }
 
-.main-intro > span#intro-name {
+.main-header > span#header-name {
   cursor: text;
 }
 
@@ -80,7 +80,7 @@ button:not(:disabled), select, option {
   font-weight: bold;
 }
 
-span#intro-name {
+span#header-name {
   outline: 0;
 }
 
@@ -118,12 +118,12 @@ span#intro-name {
   float: right;
 }
 
-#intro-ping {
+#header-ping {
   float: right;
   /*margin: 1px 5px;*/
 }
 
-#intro-ping.disabled {
+#header-ping.disabled {
   display: none;
 }
 

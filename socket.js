@@ -1,11 +1,12 @@
 const createSocket = require('socket.io');
 const configValue = require('./util/config');
 const clientConfig = configValue('Client');
+const serverConfig = configValue('Server');
 
 const base62alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const base62 = require('base-x')(base62alphabet);
 const uuidv4 = require('uuid/v4');
-const uuidBytes = configValue('Server.uuid_bytes');
+const uuidBytes = serverConfig.uuid_bytes;
 
 const connections = {
   clients: new ClientList(),
@@ -14,7 +15,7 @@ const connections = {
 
 module.exports = function (server) {
   const io = createSocket(server, {
-    pingInterval: configValue('Server.ping_interval')
+    pingInterval: clientConfig.show_ping ? serverConfig.ping_interval : undefined
   });
 
   io.on('connection', function (socket) {
@@ -30,7 +31,6 @@ module.exports = function (server) {
       const credentials = data.credentials;
 
       let error = null;
-      console.log(credentials.name, connections.clients.isNameTaken(credentials.name));
       if (connections.clients.isNameTaken(credentials.name))
         error = new SocketError('Der Name ist bereits in Verwendung.');
       else {

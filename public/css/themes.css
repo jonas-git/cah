@@ -16,7 +16,7 @@
   background-color: #fff;
 }
 
-.theme-dark span#intro-name {
+.theme-dark span#header-name {
   color: #000;
 }
 
@@ -31,7 +31,7 @@
   filter: invert(100%);
 }
 
-.theme-dark span#intro-ping {
+.theme-dark span#header-ping {
   background-color: rgb(70, 70, 70);
 }
 
@@ -51,12 +51,12 @@
   border-top: 2px solid #a7a59b;
 }
 
-.theme-bright span#intro-ping {
+.theme-bright span#header-ping {
   background-color: rgb(241, 241, 241);
 }
 
 /* Mixed theme. */
-.theme-bright span#intro-name, .theme-dark span#intro-name {
+.theme-bright span#header-name, .theme-dark span#header-name {
   background-color: rgb(255, 222, 34);
 }
 

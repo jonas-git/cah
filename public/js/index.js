@@ -8,8 +8,8 @@ const login_form = login_container.querySelector('form');
 const login_input_field = login_form.querySelector('input#login-name');
 const login_submit_button = login_form.querySelector('button');
 
-const intro_name_span = main_container.querySelector('span#intro-name');
-const intro_ping_span = main_container.querySelector('span#intro-ping');
+const header_name_span = main_container.querySelector('span#header-name');
+const header_ping_span = main_container.querySelector('span#header-ping');
 
 const main_toolbar = main_container.querySelector('menu.main-toolbar');
 const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
@@ -37,12 +37,14 @@ socket.on('connect', function () {
 
 socket.on('disconnect', function () {
   state.connected = state.reconnected = false;
-  intro_ping_span.classList.add('disabled');
+  header_ping_span.classList.add('disabled');
 });
 
 socket.on('pong', function (ping) {
-  intro_ping_span.innerText = ping;
-  intro_ping_span.classList.remove('disabled');
+  if (_config && _config.show_ping) {
+    header_ping_span.innerText = ping;
+    header_ping_span.classList.remove('disabled');
+  }
 });
 
 // Before anything the application waits for the client config
@@ -112,7 +114,7 @@ login_submit_button.addEventListener('click', function (e) {
     }
 
     _client = data.client;
-    intro_name_span.innerText = _client.name;
+    header_name_span.innerText = _client.name;
     main_container.classList.remove('disabled');
     login_container.classList.add('disabled');
     loading_container.classList.add('disabled');
@@ -147,12 +149,12 @@ logout_button.addEventListener('click', function (e) {
 
   // Once the users starts renaming store the old name,
   // in case the new name is considered invalid afterwards.
-  intro_name_span.addEventListener('focus', function (e) {
+  header_name_span.addEventListener('focus', function (e) {
     old_name = this.innerText;
   });
 
   // Once the span is blurred, save the new name.
-  intro_name_span.addEventListener('blur', function (e) {
+  header_name_span.addEventListener('blur', function (e) {
     const name = this.innerText;
     if (name.length >= _config.min_name_length)
       if (name.length === old_name.length && name !== old_name || true)
@@ -160,7 +162,7 @@ logout_button.addEventListener('click', function (e) {
           name: name
         }, function (data, error) {
           if (error) {
-            intro_name_span.innerText = data.name;
+            header_name_span.innerText = data.name;
             console.log('ERR "', error.message, '"');
             return false;
           }
@@ -170,7 +172,7 @@ logout_button.addEventListener('click', function (e) {
   });
 
   // When enter is pressed blur the span.
-  intro_name_span.addEventListener('keypress', function (e) {
+  header_name_span.addEventListener('keypress', function (e) {
     if (e.which === 13) {
       e.preventDefault();
       this.blur();
