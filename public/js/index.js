@@ -9,6 +9,7 @@ const login_input_field = login_form.querySelector('input#login-name');
 const login_submit_button = login_form.querySelector('button');
 
 const intro_name_span = main_container.querySelector('span#intro-name');
+const intro_ping_span = main_container.querySelector('span#intro-ping');
 
 const main_toolbar = main_container.querySelector('menu.main-toolbar');
 const lobby_toolset = main_toolbar.querySelector('.lobby-toolset');
@@ -28,10 +29,21 @@ const state = {
 };
 
 socket.on('error', function (error) { console.error('SOCK_ERR', error); });
-socket.on('connect', function () { state.connected = true; });
 socket.on('reconnect', function (attempt) { state.connected = state.reconnected = true; });
-socket.on('disconnect', function () { state.connected = state.reconnected = false; });
 
+socket.on('connect', function () {
+  state.connected = true;
+});
+
+socket.on('disconnect', function () {
+  state.connected = state.reconnected = false;
+  intro_ping_span.classList.add('disabled');
+});
+
+socket.on('pong', function (ping) {
+  intro_ping_span.innerText = ping;
+  intro_ping_span.classList.remove('disabled');
+});
 
 // Before anything the application waits for the client config
 // to arrive via the socket connection. 

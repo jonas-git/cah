@@ -72,12 +72,15 @@ button:not(:disabled), select, option {
   opacity: 0.5;
 }
 
-span#intro-name {
+.badge {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   padding: 2px 4px;
   font-weight: bold;
+}
+
+span#intro-name {
   outline: 0;
 }
 
@@ -115,8 +118,17 @@ span#intro-name {
   float: right;
 }
 
+#intro-ping {
+  float: right;
+  /*margin: 1px 5px;*/
+}
+
+#intro-ping.disabled {
+  display: none;
+}
+
 .main-logo {
   float: right;
   padding: 1px;
-  margin-right: 6px
+  margin: 1px 5px
 }

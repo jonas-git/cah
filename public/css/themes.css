@@ -31,6 +31,10 @@
   filter: invert(100%);
 }
 
+.theme-dark span#intro-ping {
+  background-color: rgb(70, 70, 70);
+}
+
 /* Bright theme. */
 .theme-bright {
   color: initial;
@@ -45,6 +49,10 @@
 .theme-bright .main-toolbar {
   background-color: #f7eee7;
   border-top: 2px solid #a7a59b;
+}
+
+.theme-bright span#intro-ping {
+  background-color: rgb(241, 241, 241);
 }
 
 /* Mixed theme. */

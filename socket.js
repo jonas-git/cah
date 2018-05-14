@@ -13,7 +13,9 @@ const connections = {
 };
 
 module.exports = function (server) {
-  const io = createSocket(server);
+  const io = createSocket(server, {
+    pingInterval: configValue('Server.ping_interval')
+  });
 
   io.on('connection', function (socket) {
     console.log('new connection');
@@ -28,8 +30,8 @@ module.exports = function (server) {
       const credentials = data.credentials;
 
       let error = null;
-      console.log(data.name, connections.clients.isNameTaken(data.name));
-      if (connections.clients.isNameTaken(data.name))
+      console.log(credentials.name, connections.clients.isNameTaken(credentials.name));
+      if (connections.clients.isNameTaken(credentials.name))
         error = new SocketError('Der Name ist bereits in Verwendung.');
       else {
         client.name = credentials.name;
@@ -113,7 +115,7 @@ Client.prototype.rename = function (newName) {
  * Data structure to keep track of all connected clients.
  */
 function ClientList() {
-  this.list = {};
+  this.clients = {};
 }
 
 /**
@@ -121,7 +123,7 @@ function ClientList() {
  * @param {Client} client Any client.
  */
 ClientList.prototype.push = function (client) {
-  this.list[client.uuid] = client;
+  this.clients[client.uuid] = client;
 };
 
 /**
@@ -129,7 +131,7 @@ ClientList.prototype.push = function (client) {
  * @param {Client} client A client that is present in the list.
  */
 ClientList.prototype.pop = function (client) {
-  delete this.list[client.uuid];
+  delete this.clients[client.uuid];
 }
 
 /**
@@ -137,7 +139,7 @@ ClientList.prototype.pop = function (client) {
  * @param {string} uuid UUID of a client.
  */
 ClientList.prototype.find = function (uuid) {
-  return uuid in this.list ? this.list[uuid] : undefined;
+  return uuid in this.clients ? this.clients[uuid] : undefined;
 }
 
 /**
@@ -145,8 +147,8 @@ ClientList.prototype.find = function (uuid) {
  * @param {string} name Any name.
  */
 ClientList.prototype.isNameTaken = function (name) {
-  for (const client in this.list)
-    if (client.name === name)
+  for (uuid in this.clients)
+    if (this.clients[uuid].name === name)
       return true;
   return false;
 };

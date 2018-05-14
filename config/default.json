@@ -1,7 +1,8 @@
 {
   "Server": {
     "fallback_port": 3000,
-    "uuid_bytes": 4
+    "uuid_bytes": 4,
+    "ping_interval": 2500
   },
   "Client": {
     "min_name_length": 3,
