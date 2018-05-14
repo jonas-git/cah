@@ -28,8 +28,8 @@ module.exports = function (server) {
       const credentials = data.credentials;
 
       let error = null;
-      console.log(data.name, connections.clients.is_name_taken(data.name));
-      if (connections.clients.is_name_taken(data.name))
+      console.log(data.name, connections.clients.isNameTaken(data.name));
+      if (connections.clients.isNameTaken(data.name))
         error = new SocketError('Der Name ist bereits in Verwendung.');
       else {
         client.name = credentials.name;
@@ -46,7 +46,7 @@ module.exports = function (server) {
 
     socket.on('rename', function (data, callback) {
       let error = null;
-      if (connections.clients.is_name_taken(data.name))
+      if (connections.clients.isNameTaken(data.name))
         error = new SocketError('Der Name ist bereits in Verwendung.');
       else
         client.rename(data.name);
@@ -144,7 +144,7 @@ ClientList.prototype.find = function (uuid) {
  * Checks if a name already in use.
  * @param {string} name Any name.
  */
-ClientList.prototype.is_name_taken = function (name) {
+ClientList.prototype.isNameTaken = function (name) {
   for (const client in this.list)
     if (client.name === name)
       return true;
