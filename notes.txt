@@ -12,5 +12,3 @@
         -> log back into lobby
 - add informational text to the loading screen
 - rename "intro" to "header"
-- move DOM event listeners out of config socket event handler 'config'!
-    -> it's going to be called again on reconnects

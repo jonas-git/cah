@@ -48,39 +48,10 @@ socket.on('pong', function (ping) {
 // Before anything the application waits for the client config
 // to arrive via the socket connection. 
 socket.on('config', function (config) {
-  console.log('config', arguments);
   _config = config;
 
   // Complete the character amount hint in the placeholder.
   login_input_field.placeholder = login_input_field.placeholder.replace(/#/, _config.min_name_length);
-
-  // Restrict the number of characters to the config's minimum.
-  login_input_field.addEventListener('input', function (e) {   
-    login_submit_button.disabled = this.value.length < _config.min_name_length;
-  });
-
-  // Event Handler for when the login button is clicked.
-  login_submit_button.addEventListener('click', function (e) {
-    socket.emit('login', {
-      credentials: {
-        name: login_input_field.value
-      }
-    }, function (data, error) {
-      if (error) {
-        console.log('ERR "', error.message, '"');
-        loading_container.classList.add('disabled');
-        return false;
-      }
-
-      _client = data.client;
-      intro_name_span.innerText = _client.name;
-      main_container.classList.remove('disabled');
-      login_container.classList.add('disabled');
-      loading_container.classList.add('disabled');
-    });
-
-    loading_container.classList.remove('disabled');
-  });
 
   // Do not affect the loading screen by the theme during the initial page load,
   // otherwise it might rapidly change color before the transition ended.
@@ -119,6 +90,35 @@ socket.on('config', function (config) {
 
   // Everything's done. Hide the loading screen.
   loading_container.classList.add('disabled');
+});
+
+
+// Restrict the number of characters to the config's minimum.
+login_input_field.addEventListener('input', function (e) {   
+  login_submit_button.disabled = this.value.length < _config.min_name_length;
+});
+
+
+login_submit_button.addEventListener('click', function (e) {
+  socket.emit('login', {
+    credentials: {
+      name: login_input_field.value
+    }
+  }, function (data, error) {
+    if (error) {
+      console.log('ERR "', error.message, '"');
+      loading_container.classList.add('disabled');
+      return false;
+    }
+
+    _client = data.client;
+    intro_name_span.innerText = _client.name;
+    main_container.classList.remove('disabled');
+    login_container.classList.add('disabled');
+    loading_container.classList.add('disabled');
+  });
+
+  loading_container.classList.remove('disabled');
 });
 
 
