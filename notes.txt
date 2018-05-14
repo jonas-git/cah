@@ -11,3 +11,4 @@
         -> continue anything that was going to on before disconnect
     -> client not known anymore (because of restart e.g.)?
         -> log back into lobby
+- add informational text to the loading screen
