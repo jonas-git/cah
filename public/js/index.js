@@ -23,6 +23,10 @@ const socket = io();
 let _config = null;
 let _client = null;
 
+socket.on('error', function (error) {
+  console.log('error', error);
+});
+
 // Before anything the application waits for the client config
 // to arrive via the socket connection. 
 socket.on('config', function (config) {
@@ -38,12 +42,7 @@ socket.on('config', function (config) {
 
   // Event Handler for when the login button is clicked.
   login_submit_button.addEventListener('click', function (e) {
-    // Send the login credentials.
-    socket.emit('login', {
-      name: login_input_field.value
-    });
-
-    // Reenable the loading screen until the login has succeeded.
+    socket.emit('login', { name: login_input_field.value });
     loading_container.classList.remove('disabled');
   });
 
@@ -62,7 +61,7 @@ socket.on('config', function (config) {
     theme_selector.add(option, index);
   }
 
-  // Use the theme of the last session (stored in cookie)
+  // Use the theme of the last session (stored as a cookie)
   // or fall back to the default theme.
   const theme_index = Cookies.get('theme_index') || _config.default_theme_index;
   document.body.classList.add(_config.themes[theme_index].css_class);
@@ -158,7 +157,7 @@ logout_button.addEventListener('click', function (e) {
   intro_name_span.addEventListener('blur', function (e) {
     const name = this.innerText;
     if (name.length >= _config.min_name_length)
-      if (name.length === old_name.length && name === old_name || true)
+      if (name.length === old_name.length && name !== old_name || true)
         socket.emit('rename', name);
     else
       this.innerText = old_name;
