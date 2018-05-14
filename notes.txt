@@ -1,6 +1,6 @@
 - create an admin control panel where you can do following things:
     * change any game settings
     * enable/disabled the game by starting/stopping the socket
-    * have a sub-loading screen that doesn't cover the main header and toolbar
-    * store the last used user name as a cookie as well
     * ...
+- have a sub-loading screen that doesn't cover the main header and toolbar
+- encountered no response after adding SocketRequestTracker - have an eye on that
