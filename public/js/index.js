@@ -22,14 +22,20 @@ const theme_selector = global_toolset.querySelector('select#theme-selector');
 const socket = io();
 let _config = null;
 let _client = null;
+const state = {
+  connected: false,
+  reconnected: false
+};
 
-socket.on('error', function (error) {
-  console.log('error', error);
-});
+socket.on('error', function (error) { console.error('SOCK_ERR', error); });
+socket.on('connect', function () { state.connected = true; });
+socket.on('reconnect', function (attempt) { state.connected = state.reconnected = true; });
+socket.on('disconnect', function () { state.connected = state.reconnected = false; });
 
 // Before anything the application waits for the client config
 // to arrive via the socket connection. 
 socket.on('config', function (config) {
+  console.log('config', arguments);
   _config = config;
 
   // Complete the character amount hint in the placeholder.
@@ -42,17 +48,36 @@ socket.on('config', function (config) {
 
   // Event Handler for when the login button is clicked.
   login_submit_button.addEventListener('click', function (e) {
-    socket.emit('login', { name: login_input_field.value });
+    socket.emit('login', {
+      credentials: {
+        name: login_input_field.value
+      }
+    }, function (data, error) {
+      if (error) {
+        console.log('ERR "', error.message, '"');
+        loading_container.classList.add('disabled');
+        return false;
+      }
+
+      _client = data.client;
+      intro_name_span.innerText = _client.name;
+      main_container.classList.remove('disabled');
+      login_container.classList.add('disabled');
+      loading_container.classList.add('disabled');
+    });
+
     loading_container.classList.remove('disabled');
   });
 
   // Do not affect the loading screen by the theme during the initial page load,
   // otherwise it might rapidly change color before the transition ended.
-  loading_container.classList.add('no-theme');
-  loading_container.addEventListener('transitionend', function onAfterTransition(e) {
-    loading_container.removeEventListener('transitionend', onAfterTransition);
-    loading_container.classList.remove('no-theme');
-  });
+  if (!state.reconnected) {
+    loading_container.classList.add('no-theme');
+    loading_container.addEventListener('transitionend', function onAfterTransition(e) {
+      loading_container.removeEventListener('transitionend', onAfterTransition);
+      loading_container.classList.remove('no-theme');
+    });
+  }
 
   // Add all available themes to the theme selector.
   for (index in _config.themes) {
@@ -83,15 +108,6 @@ socket.on('config', function (config) {
   loading_container.classList.add('disabled');
 });
 
-// Login has been acknowledged by the server.
-socket.on('login_ack', function (response) {
-  _client = response.data.client;
-  intro_name_span.innerText = _client.name;
-  main_container.classList.remove('disabled');
-  login_container.classList.add('disabled');
-  loading_container.classList.add('disabled');
-});
-
 create_game_button.addEventListener('click', function (e) {
   loading_container.classList.remove('disabled');
 
@@ -101,11 +117,10 @@ create_game_button.addEventListener('click', function (e) {
   lobby_container.classList.add('disabled');
   game_container.classList.remove('disabled');
 
-  socket.on('game_create_ack', function (game) {
+  socket.emit('game_create', {}, function (data, error) {
     // ...
     loading_container.classList.add('disabled');
   });
-  socket.emit('game_create');
 });
 
 leave_game_button.addEventListener('click', function (e) {
@@ -117,11 +132,10 @@ leave_game_button.addEventListener('click', function (e) {
   lobby_container.classList.remove('disabled');
   game_container.classList.add('disabled');
 
-  socket.on('game_leave_ack', function (game) {
+  socket.emit('game_leave', {}, function (data, error) {
     // ...
     loading_container.classList.add('disabled');
   });
-  socket.emit('game_leave');
 });
 
 const logout_button = global_toolset.querySelector('button.logout');
@@ -137,11 +151,10 @@ logout_button.addEventListener('click', function (e) {
   lobby_toolset.classList.remove('disabled');
   game_toolset.classList.add('disabled');
 
-  socket.on('logout_ack', function () {
-    _client = null;
+  socket.emit('logout', {}, function (data, error) {
     loading_container.classList.add('disabled');
+    _client = null;
   });
-  socket.emit('logout');
 });
 
 (function () {
@@ -158,7 +171,15 @@ logout_button.addEventListener('click', function (e) {
     const name = this.innerText;
     if (name.length >= _config.min_name_length)
       if (name.length === old_name.length && name !== old_name || true)
-        socket.emit('rename', name);
+        socket.emit('rename', {
+          name: name
+        }, function (data, error) {
+          if (error) {
+            intro_name_span.innerText = data.name;
+            console.log('ERR "', error.message, '"');
+            return false;
+          }
+        });
     else
       this.innerText = old_name;
   });

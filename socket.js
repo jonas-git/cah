@@ -24,29 +24,51 @@ module.exports = function (server) {
     // immediately send the client configuration.
     socket.emit('config', clientConfig);
 
-    socket.on('login', function (credentials) {
-      client.name = credentials.name;
-      connections.clients.push(client);
-      socket.emit('login_ack', { name: client.name, uuid: client.uuid });
+    socket.on('login', function (data, callback) {
+      const credentials = data.credentials;
+
+      let error = null;
+      console.log(data.name, connections.clients.is_name_taken(data.name));
+      if (connections.clients.is_name_taken(data.name))
+        error = new SocketError('Der Name ist bereits in Verwendung.');
+      else {
+        client.name = credentials.name;
+        connections.clients.push(client);
+      }
+
+      callback({
+        client: {
+          uuid: client.uuid,
+          name: client.name
+        }
+      }, error);
     });
 
-    socket.on('logout', function () {
+    socket.on('logout', function (data, callback) {
       connections.clients.pop(client);
-      socket.emit('logout_ack');
+      callback({}, null);
     });
 
-    socket.on('create_game', function () {
+    socket.on('game_create', function (data, callback) {
       // ...
-      socket.emit('game_created');
+      callback({}, null);
     });
 
-    socket.on('leave_game', function () {
+    socket.on('game_leave', function (data, callback) {
       // ...
-      socket.emit('game_left');
+      callback({}, null);
     });
 
-    socket.on('rename', function (name) {
-      client.rename(name);
+    socket.on('rename', function (data, callback) {
+      let error = null;
+      if (connections.clients.is_name_taken(data.name))
+        error = new SocketError('Der Name ist bereits in Verwendung.');
+      else
+        client.rename(data.name);
+
+      callback({
+        name: client.name
+      }, error);
     });
 
     socket.on('disconnect', function () {
@@ -116,4 +138,23 @@ ClientList.prototype.pop = function (client) {
  */
 ClientList.prototype.find = function (uuid) {
   return uuid in this.list ? this.list[uuid] : undefined;
+}
+
+/**
+ * Checks if a name already in use.
+ * @param {string} name Any name.
+ */
+ClientList.prototype.is_name_taken = function (name) {
+  for (const client in this.list)
+    if (client.name === name)
+      return true;
+  return false;
+};
+
+/**
+ * Uniformly formatted error object.
+ * @param {string} message A detailed error message.
+ */
+function SocketError(message) {
+  this.message = message;
 }
