@@ -17,17 +17,13 @@
         und aktualisiere die Seite um fortzufahren.
       </div>
     </noscript>
-
-    <!-- This resembles the main application and
-      contains all its pages and modules. -->
+    <!-- This resembles the main application and contains all its pages and modules. -->
     <div class="page-container">
-
       <!-- Generic loading overlay. -->
       <div class="loading-container">
         <img class="loading-animation" width="100"
           src="/static/img/loading.svg" alt="Loading">
       </div>
-
       <!-- Initial view where the user logs in. -->
       <div class="login-container">
         <form action="javascript:void(0);">
@@ -37,10 +33,8 @@
           <button type="submit" disabled>Einloggen</button>
         </form>
       </div>
-
       <!-- Contains the part of application with the actual game. -->
       <div class="main-container disabled">
-
         <!-- Topmost line with meta information. -->
         <div class="main-header">
           <span>Eingeloggt als </span>
@@ -48,9 +42,7 @@
           <img src="/static/img/cah.svg" height="16px" class="main-logo">
           <span id="header-ping" class="badge disabled" title="Ping (ms)"></span>
         </div>
-
-        <!-- Persistent toolbar that adapts to the current view.
-          E.g. the lobby toolset differs from the game toolset. -->
+        <!-- Persistent toolbar that adapts to the current view. -->
         <menu class="main-toolbar">
           <div class="lobby-toolset">
             <button type="button" class="create-game">Spiel erstellen</button>
@@ -58,7 +50,6 @@
           <div class="game-toolset disabled">
             <button type="button" class="leave-game">Zurück zur Lobby</button>
           </div>
-          <!-- This toolset stays the same, irrespective of the view. -->
           <div class="global-toolset">
             <div class="theme-selector">
               <label for="theme-selector">Thema:</label>
@@ -68,10 +59,7 @@
             <button type="button" class="logout">Ausloggen</button>
           </div>
         </menu>
-
-        <!-- Lobby view -->
         <div class="lobby-container"></div>
-        <!-- Game view -->
         <div class="game-container disabled"></div>
       </div>
     </div>
