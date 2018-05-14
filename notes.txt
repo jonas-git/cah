@@ -4,3 +4,10 @@
     * ...
 - have a sub-loading screen that doesn't cover the main header and toolbar
 - encountered no response after adding SocketRequestTracker - have an eye on that
+- have a utility that enumerates socket error messages (in German)
+- add a ping on the top right corner, next to the logo
+- log out on disconnect, and log back in on reconnect
+    -> client still known by the server?
+        -> continue anything that was going to on before disconnect
+    -> client not known anymore (because of restart e.g.)?
+        -> log back into lobby
