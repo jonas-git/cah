@@ -11,7 +11,7 @@ For a more thorough explanation visit the [official website][cah-home] of the ga
 
 ## License
 > Licensed under the Do What the Fuck You Want to Public License.  
-> For more information check out the respective file in the source tree.
+> For more information check out the respective file in the source tree.  
 [![WTFPL][wtfpl-badge]][wtfpl-home]
 
 [badge-license]: https://img.shields.io/badge/license-WTFPL-green.svg
