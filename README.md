@@ -14,8 +14,7 @@ For a more thorough explanation visit the [official website][cah-home] of the ga
 > For more information check out the respective file in the source tree.  
 [![WTFPL][wtfpl-badge]][wtfpl-home]
 
-[badge-license]: https://img.shields.io/badge/license-WTFPL-green.svg
-[badge-license-old]: https://img.shields.io/github/license/snrk0/cah.svg
+[badge-license]: https://img.shields.io/github/license/snrk0/cah.svg
 [badge-version]: https://badge.fury.io/gh/snrk0%2Fcah.svg
 [badge-activity]: https://img.shields.io/badge/activity-paused-orange.svg
 [cah-home]: https://cardsagainsthumanity.com/
